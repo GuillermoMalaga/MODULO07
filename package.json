@@ -1,0 +1,25 @@
+{
+  "name": "modulo07",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuillermoMalaga/MODULO07.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GuillermoMalaga/MODULO07/issues"
+  },
+  "homepage": "https://github.com/GuillermoMalaga/MODULO07#readme",
+  "dependencies": {
+    "chalk": "^5.0.1",
+    "nodemon": "^2.0.19",
+    "pg": "^8.7.3"
+  }
+}
