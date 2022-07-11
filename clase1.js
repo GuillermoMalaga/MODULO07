@@ -1,7 +1,7 @@
 //1.- importar libreria o módulo
 //var pg=require('pg'); //tambien e puede usar
 var {Client}=require('pg'); //sólo se importa la funcionalidad de cliente
-
+var chalk = require('chalk');
 //2.- configurar la conexión
 //2.1 con string de coneccion
 //postgreql://user:password@servidor:puerto/basededatos
@@ -12,7 +12,7 @@ const configuracion={
     user:'postgres',
     password:'postgres',
     host:'localhost',
-    database:'Biblioteca',
+    database:'Libreria',
     port:5432
 }
 //3.- crear el cliente
@@ -83,3 +83,33 @@ cliente.query(consulta + ' ORDER BY "Autor"',function(err,res){
 //ejerccio 4.- consultar todos los libros con su autor y año de edición.
 //usando chalk, pintar los libros según su año: rojo antes de 1900,amarillo antes (o igual) del 2000, verde mayor al 2000
 
+const consulta4='SELECT l."Nombre" AS "Libro",a."Nombre" AS "Autor",l."Edicion" FROM "Libros" l JOIN "Autores" a ON l."IdAutor"=a."Id" ORDER BY l."Edicion"';
+
+cliente.query(consulta4,function(err,res){
+    if(err){
+        console.log("Error"+err.message);
+    }else{
+        res.rows.map(l=>{
+            let textoLibro=l.Libro+"-"+l.Autor+"-"+l.Edicion;
+            if(l.Edicion<=1900){
+                console.log(chalk.red(textoLibro));
+            }else if(l.Edicion<=2000){
+                console.log(chalk.yellow(textoLibro));
+            }else{
+                console.log(chalk.green(textoLibro))
+            }
+        })
+    }
+    console.log("-------------------------------");
+})
+
+//otro metodo
+cliente.query(consulta4,function(err,res){
+    if(err){
+        console.log("Error"+err.message);
+    }else{
+        res.rows.filter(l=>l.Edicion<=1900).map(l=>console.log(chalk.red(l.Libro+"-"+l.Autor+"-"+l.Edicion)));
+        //res.rows.filter(l=>l.)
+    }
+    console.log("-------------------------------");
+})
